@@ -41,44 +41,55 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Form Submit Handler
+    // Form Button Handlers
     const form = document.getElementById('contact-form');
     const successMessage = document.getElementById('success-message');
     if (form) {
-        form.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const name = form.querySelector('#name').value.trim();
-            const email = form.querySelector('#email').value.trim();
-            const subject = form.querySelector('#subject').value.trim();
-            const message = form.querySelector('#message').value.trim();
+        const buttons = form.querySelectorAll('.submit-btn');
+        buttons.forEach(button => {
+            button.addEventListener('click', () => {
+                const name = form.querySelector('#name').value.trim();
+                const subject = form.querySelector('#subject').value.trim();
+                const message = form.querySelector('#message').value.trim();
 
-            if (name && email && subject && message) {
-                const emailBody = `Name: ${name}\nEmail: ${email}\nSubject: ${subject}\nMessage: ${message}`;
-                const whatsappText = encodeURIComponent(`Hello ${THERAPIST_NAME}, I am ${name} (${email}). ${message} (Subject: ${subject})`);
-                
-                try {
-                    openEmailComposer(EMAIL, subject, emailBody);
-                    openWhatsApp(PHONE, whatsappText);
-                    successMessage.textContent = 'Message sent successfully! We will get back to you soon.';
-                    successMessage.style.display = 'block';
-                    setTimeout(() => {
-                        successMessage.style.display = 'none';
-                    }, 5000);
-                    form.reset();
-                } catch (error) {
-                    successMessage.textContent = 'Failed to open communication channels. Please try again or contact us directly.';
+                if (name && subject && message) {
+                    const action = button.getAttribute('data-action');
+                    const body = `Name: ${name}\nSubject: ${subject}\nMessage: ${message}`;
+                    const whatsappText = encodeURIComponent(`Hello ${THERAPIST_NAME}, I am ${name}. ${message} (Subject: ${subject})`);
+
+                    try {
+                        if (action === 'email') {
+                            openEmailComposer(EMAIL, subject, body);
+                        } else if (action === 'whatsapp') {
+                            openWhatsApp(PHONE, whatsappText);
+                        }
+                        successMessage.textContent = `Message sent via ${action} successfully! We will get back to you soon.`;
+                        successMessage.style.display = 'block';
+                        setTimeout(() => {
+                            successMessage.style.display = 'none';
+                        }, 5000);
+                        form.reset();
+                    } catch (error) {
+                        successMessage.textContent = `Failed to send via ${action}. Please try again or contact us directly.`;
+                        successMessage.style.display = 'block';
+                        setTimeout(() => {
+                            successMessage.style.display = 'none';
+                        }, 5000);
+                    }
+                } else {
+                    successMessage.textContent = 'Please fill in all fields.';
                     successMessage.style.display = 'block';
                     setTimeout(() => {
                         successMessage.style.display = 'none';
                     }, 5000);
                 }
-            } else {
-                successMessage.textContent = 'Please fill in all fields.';
-                successMessage.style.display = 'block';
-                setTimeout(() => {
-                    successMessage.style.display = 'none';
-                }, 5000);
-            }
+            });
+            button.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    button.click();
+                }
+            });
         });
     }
 

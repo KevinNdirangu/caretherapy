@@ -21,8 +21,9 @@
 
     <main>
         <section id="home">
-            <h1>Welcome to Your Therapy Space</h1>
-            <p>Discover a path to mental wellness with compassionate and professional support. Our therapy services are tailored to help you navigate life's challenges in a safe and nurturing environment.</p>
+            <h1>Professional Therapist</h1>
+            <h2>Be seen. Be heard. Be whole.</h2>
+            <p>Personalized therapy that meets you where you are—support for anxiety, identity, relationships, or life’s challenges. Together, we’ll turn struggle into growth and survival into thriving.</p>
         </section>
 
         <section id="about">
@@ -125,16 +126,16 @@
                 <label for="name">Name:</label>
                 <input type="text" id="name" name="name" required aria-required="true">
                 
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required aria-required="true">
-                
                 <label for="subject">Subject:</label>
                 <input type="text" id="subject" name="subject" required aria-required="true">
                 
-                <label for="message">Message:</label>
-                <textarea id="message" name="message" required aria-required="true"></textarea>
+                <label for="message">Short Message:</label>
+                <textarea id="message" name="message" rows="3" required aria-required="true"></textarea>
                 
-                <button type="submit" class="submit-btn">Send Message</button>
+                <div class="button-group">
+                    <button type="button" class="submit-btn" data-action="email">Send Email</button>
+                    <button type="button" class="submit-btn" data-action="whatsapp">Send WhatsApp</button>
+                </div>
             </form>
             <p id="success-message" class="success-message" role="alert"></p>
         </section>
