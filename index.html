@@ -169,27 +169,44 @@
         </section>
 
         <section id="contact">
-            <h2>Contact Us</h2>
-            <div class="contact-container">
-                <div class="contact-info">
-                    <p><strong>Therapist:</strong> Connie</p>
-                    <p><a href="#" class="contact-link" data-type="email" aria-label="Email Connie (opens Gmail)">conniemuriithi068@gmail.com</a></p>
-                    <p><a href="#" class="contact-link" data-type="phone" aria-label="Message Connie on WhatsApp">+254 741629462</a></p>
-                </div>
-                <form id="contact-form" novalidate>
-                    <label for="name">Name:</label>
-                    <input type="text" id="name" name="name" required aria-required="true">
-                    <label for="subject">Subject:</label>
-                    <input type="text" id="subject" name="subject" required aria-required="true">
-                    <label for="message">Message:</label>
-                    <textarea id="message" name="message" rows="3" required aria-required="true"></textarea>
-                    <div class="button-group">
-                        <button type="button" class="submit-btn" data-action="email">Send Email</button>
-                        <button type="button" class="submit-btn" data-action="whatsapp">Send WhatsApp</button>
-                    </div>
-                </form>
+            <h3>Let's Connect</h3>
+            <p>We're here to help bring your ideas to life. Reach out through any of these channels and let's start the conversation.</p>
+            <div class="contact__methods">
+                <a href="mailto:conniemuriithi068@gmail.com" class="contact-method" aria-label="Send email to Connie Wawira">
+                    <svg class="method-icon" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                    </svg>
+                    <span>conniemuriithi068@gmail.com</span>
+                </a>
+                <a href="https://wa.me/254741629462" class="contact-method" aria-label="Open WhatsApp chat with Connie Wawira">
+                    <svg class="method-icon" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1.45 1.45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+                    </svg>
+                    <span>+254 741629462</span>
+                </a>
             </div>
-            <p id="success-message" class="success-message" role="alert"></p>
+            <form class="contact-form" id="contactForm">
+                <div class="success-message" id="successMessage">
+                    Message sent successfully! We'll get back to you soon.
+                </div>
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" placeholder="e.g Connie Wawira" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" placeholder="your.email@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="subject">Subject</label>
+                    <input type="text" id="subject" name="subject" placeholder="How can we help you?" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" rows="5" placeholder="Share your thoughts or concerns about your therapy journey..." required></textarea>
+                </div>
+                <button type="submit" class="contact-btn">Send Message</button>
+            </form>
         </section>
     </main>
 

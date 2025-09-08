@@ -2,7 +2,7 @@
 // Contact handling and interactivity logic
 
 document.addEventListener('DOMContentLoaded', () => {
-    const THERAPIST_NAME = 'Connie';
+    const THERAPIST_NAME = 'Connie Wawira';
     const EMAIL = 'conniemuriithi068@gmail.com';
     const PHONE = '254741629462';
     const WHATSAPP_BASE = 'https://wa.me/';
@@ -18,7 +18,6 @@ document.addEventListener('DOMContentLoaded', () => {
             if (targetElement) {
                 targetElement.scrollIntoView({ behavior: 'smooth' });
             }
-            // Close mobile menu after click
             const navMenu = document.querySelector('.nav-menu');
             if (navMenu.classList.contains('active')) {
                 navMenu.classList.remove('active');
@@ -35,75 +34,42 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Email and Phone Click Handlers
-    const contactLinks = document.querySelectorAll('.contact-link');
-    contactLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            const type = link.getAttribute('data-type');
-            if (type === 'email') {
-                openEmailComposer(EMAIL, 'Contact from Website', `Hello ${THERAPIST_NAME}, I would like to get in touch.`);
-            } else if (type === 'phone') {
-                openWhatsApp(PHONE, `Hello ${THERAPIST_NAME}, I would like to message you.`);
-            }
-        });
-        link.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                link.click();
-            }
-        });
-    });
-
-    // Form Button Handlers
-    const form = document.getElementById('contact-form');
-    const successMessage = document.getElementById('success-message');
+    // Contact Form Submission
+    const form = document.getElementById('contactForm');
+    const successMessage = document.getElementById('successMessage');
     if (form) {
-        const buttons = form.querySelectorAll('.submit-btn');
-        buttons.forEach(button => {
-            button.addEventListener('click', () => {
-                const name = form.querySelector('#name').value.trim();
-                const subject = form.querySelector('#subject').value.trim();
-                const message = form.querySelector('#message').value.trim();
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = form.querySelector('#name').value.trim();
+            const email = form.querySelector('#email').value.trim();
+            const subject = form.querySelector('#subject').value.trim();
+            const message = form.querySelector('#message').value.trim();
 
-                if (name && subject && message) {
-                    const action = button.getAttribute('data-action');
-                    const body = `Name: ${name}\nSubject: ${subject}\nMessage: ${message}`;
-                    const whatsappText = encodeURIComponent(`Hello ${THERAPIST_NAME}, I am ${name}. ${message} (Subject: ${subject})`);
+            if (name && email && subject && message) {
+                const body = `Name: ${name}\nEmail: ${email}\nSubject: ${subject}\nMessage: ${message}`;
+                const whatsappText = encodeURIComponent(`Hello ${THERAPIST_NAME}, I am ${name} (${email}). ${message} (Subject: ${subject})`);
 
-                    try {
-                        if (action === 'email') {
-                            openEmailComposer(EMAIL, subject, body);
-                        } else if (action === 'whatsapp') {
-                            openWhatsApp(PHONE, whatsappText);
-                        }
-                        successMessage.textContent = `Message sent via ${action} successfully! We will get back to you soon.`;
-                        successMessage.style.display = 'block';
-                        setTimeout(() => {
-                            successMessage.style.display = 'none';
-                        }, 5000);
+                try {
+                    openEmailComposer(EMAIL, subject, body);
+                    successMessage.style.display = 'block';
+                    setTimeout(() => {
+                        successMessage.style.display = 'none';
                         form.reset();
-                    } catch (error) {
-                        successMessage.textContent = `Failed to send via ${action}. Please try again or contact us directly.`;
-                        successMessage.style.display = 'block';
-                        setTimeout(() => {
-                            successMessage.style.display = 'none';
-                        }, 5000);
-                    }
-                } else {
-                    successMessage.textContent = 'Please fill in all fields.';
+                    }, 5000);
+                } catch (error) {
+                    successMessage.textContent = 'Failed to send. Please try again or use the contact links above.';
                     successMessage.style.display = 'block';
                     setTimeout(() => {
                         successMessage.style.display = 'none';
                     }, 5000);
                 }
-            });
-            button.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    button.click();
-                }
-            });
+            } else {
+                successMessage.textContent = 'Please fill in all fields.';
+                successMessage.style.display = 'block';
+                setTimeout(() => {
+                    successMessage.style.display = 'none';
+                }, 5000);
+            }
         });
     }
 
@@ -112,8 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
     chooseButtons.forEach(button => {
         button.addEventListener('click', () => {
             const packageName = button.getAttribute('data-package');
-            const therapistName = 'Connie';
-            const baseMessage = `Hello ${therapistName}, I would like to book the ${packageName} Package. Please let me know the next steps.`;
+            const baseMessage = `Hello ${THERAPIST_NAME}, I would like to book the ${packageName} Package. Please let me know the next steps.`;
             if (confirm('Would you like to contact via Email or WhatsApp? (OK for Email, Cancel for WhatsApp)')) {
                 openEmailComposer(EMAIL, `Booking: ${packageName} Package`, baseMessage);
             } else {
