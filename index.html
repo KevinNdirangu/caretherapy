@@ -9,7 +9,7 @@
 <body>
     <header>
         <nav>
-            <div class="menu-toggle">☰</div> <!-- Hamburger menu toggle -->
+            <div class="menu-toggle" aria-label="Toggle menu">☰</div>
             <ul class="nav-menu">
                 <li><a href="#hero">Home</a></li>
                 <li><a href="#about">About</a></li>
@@ -170,26 +170,25 @@
 
         <section id="contact">
             <h2>Contact Us</h2>
-            <div class="contact-info">
-                <p><strong>Therapist:</strong> Connie</p>
-                <p><a href="#" class="contact-link" data-type="email" aria-label="Email Connie (opens Gmail)">conniemuriithi068@gmail.com</a></p>
-                <p><a href="#" class="contact-link" data-type="phone" aria-label="Message Connie on WhatsApp">+254 741629462</a></p>
-            </div>
-            <form id="contact-form" novalidate>
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="name" required aria-required="true">
-                
-                <label for="subject">Subject:</label>
-                <input type="text" id="subject" name="subject" required aria-required="true">
-                
-                <label for="message">Short Message:</label>
-                <textarea id="message" name="message" rows="3" required aria-required="true"></textarea>
-                
-                <div class="button-group">
-                    <button type="button" class="submit-btn" data-action="email">Send Email</button>
-                    <button type="button" class="submit-btn" data-action="whatsapp">Send WhatsApp</button>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <p><strong>Therapist:</strong> Connie</p>
+                    <p><a href="#" class="contact-link" data-type="email" aria-label="Email Connie (opens Gmail)">conniemuriithi068@gmail.com</a></p>
+                    <p><a href="#" class="contact-link" data-type="phone" aria-label="Message Connie on WhatsApp">+254 741629462</a></p>
                 </div>
-            </form>
+                <form id="contact-form" novalidate>
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required aria-required="true">
+                    <label for="subject">Subject:</label>
+                    <input type="text" id="subject" name="subject" required aria-required="true">
+                    <label for="message">Message:</label>
+                    <textarea id="message" name="message" rows="3" required aria-required="true"></textarea>
+                    <div class="button-group">
+                        <button type="button" class="submit-btn" data-action="email">Send Email</button>
+                        <button type="button" class="submit-btn" data-action="whatsapp">Send WhatsApp</button>
+                    </div>
+                </form>
+            </div>
             <p id="success-message" class="success-message" role="alert"></p>
         </section>
     </main>

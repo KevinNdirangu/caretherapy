@@ -18,8 +18,22 @@ document.addEventListener('DOMContentLoaded', () => {
             if (targetElement) {
                 targetElement.scrollIntoView({ behavior: 'smooth' });
             }
+            // Close mobile menu after click
+            const navMenu = document.querySelector('.nav-menu');
+            if (navMenu.classList.contains('active')) {
+                navMenu.classList.remove('active');
+            }
         });
     });
+
+    // Mobile menu toggle
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navMenu = document.querySelector('.nav-menu');
+    if (menuToggle && navMenu) {
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+    }
 
     // Email and Phone Click Handlers
     const contactLinks = document.querySelectorAll('.contact-link');
@@ -98,8 +112,13 @@ document.addEventListener('DOMContentLoaded', () => {
     chooseButtons.forEach(button => {
         button.addEventListener('click', () => {
             const packageName = button.getAttribute('data-package');
-            const whatsappText = encodeURIComponent(`Hello ${THERAPIST_NAME}, I would like to book the ${packageName} Package. Please let me know the next steps.`);
-            openWhatsApp(PHONE, whatsappText);
+            const therapistName = 'Connie';
+            const baseMessage = `Hello ${therapistName}, I would like to book the ${packageName} Package. Please let me know the next steps.`;
+            if (confirm('Would you like to contact via Email or WhatsApp? (OK for Email, Cancel for WhatsApp)')) {
+                openEmailComposer(EMAIL, `Booking: ${packageName} Package`, baseMessage);
+            } else {
+                openWhatsApp(PHONE, encodeURIComponent(baseMessage));
+            }
         });
         button.addEventListener('keypress', (e) => {
             if (e.key === 'Enter' || e.key === ' ') {
@@ -134,14 +153,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const mailtoUrl = `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
         const win = window.open(gmailUrl, '_blank');
         if (win) {
-            setTimeout(() => win.location.href = mailtoUrl, 2000); // Fallback after 2s
+            setTimeout(() => win.location.href = mailtoUrl, 2000);
         } else {
-            window.location.href = mailtoUrl; // Fallback if popup blocked
+            window.location.href = mailtoUrl;
         }
     }
 
     function openWhatsApp(phone, text) {
-        const cleanPhone = phone.replace(/[^\d]/g, ''); // Remove non-numeric chars
+        const cleanPhone = phone.replace(/[^\d]/g, '');
         const whatsappUrl = `${WHATSAPP_BASE}${cleanPhone}?text=${text}`;
         const win = window.open(whatsappUrl, '_blank');
         if (!win) {
