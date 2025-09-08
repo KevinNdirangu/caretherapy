@@ -4,7 +4,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const THERAPIST_NAME = 'Connie';
     const EMAIL = 'conniemuriithi068@gmail.com';
-    const PHONE = '254787982266';
+    const PHONE = '254741629462';
     const WHATSAPP_BASE = 'https://wa.me/';
     const GMAIL_URL = 'https://mail.google.com/mail/?view=cm&to=';
 

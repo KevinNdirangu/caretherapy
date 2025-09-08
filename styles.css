@@ -58,6 +58,29 @@ main {
     padding: 20px;
 }
 
+.hero {
+    background: linear-gradient(135deg, var(--background-color), #87ceeb);
+    padding: 60px 20px;
+    text-align: center;
+    color: var(--secondary-color);
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+}
+
+.hero-content h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+    color: var(--primary-color);
+}
+
+.hero-content p {
+    font-size: 1.2em;
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
 section {
     padding: 40px 0;
     border-bottom: 1px solid var(--secondary-color);
@@ -65,6 +88,12 @@ section {
 
 h1, h2 {
     color: var(--primary-color);
+}
+
+h3 {
+    color: var(--primary-color);
+    font-size: 1.5em;
+    margin: 10px 0;
 }
 
 a {
@@ -148,15 +177,15 @@ button:active::after {
 
 footer {
     text-align: center;
-    padding: 5px; /* Reduced from 10px to a minimal 5px */
+    padding: 5px;
     background-color: var(--secondary-color);
     color: #ffffff;
     position: fixed;
     bottom: 0;
     width: 100%;
-    height: 30px; /* Fixed height to prevent overlap and keep it compact */
-    line-height: 30px; /* Vertically center text */
-    font-size: 0.9em; /* Slightly smaller text for a less dominant look */
+    height: 30px;
+    line-height: 30px;
+    font-size: 0.9em;
 }
 
 .package-container {
@@ -289,6 +318,100 @@ footer {
     color: #ffffff;
 }
 
+/* New Styles for Specialties and CTA */
+.specialties__section {
+    padding: 40px 0;
+    text-align: center;
+}
+
+.specialties__title {
+    color: var(--primary-color);
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+.specialties__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.specialty__card {
+    background-color: var(--card-bg);
+    border: 2px solid var(--secondary-color);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: var(--shadow);
+    transition: transform 0.3s ease;
+}
+
+.specialty__card:hover {
+    transform: translateY(-5px);
+}
+
+.specialty__icon {
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+.specialty__title {
+    color: var(--primary-color);
+    font-size: 1.3em;
+    margin-bottom: 10px;
+}
+
+.specialty__description {
+    color: var(--text-color);
+    font-size: 0.9em;
+    line-height: 1.5;
+}
+
+.cta__section {
+    padding: 40px 0;
+    text-align: center;
+    background: linear-gradient(135deg, var(--background-color), #87ceeb);
+    margin-top: 20px;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+}
+
+.cta__title {
+    color: var(--primary-color);
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+.cta__text {
+    color: var(--secondary-color);
+    font-size: 1.1em;
+    max-width: 600px;
+    margin: 0 auto 20px;
+}
+
+.cta__button {
+    display: inline-block;
+    padding: 10px 20px;
+    background: linear-gradient(90deg, var(--primary-color), #ff85c0);
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.cta__button:hover, .cta__button:focus {
+    background: linear-gradient(90deg, var(--hover-color), #333333);
+    color: var(--primary-color);
+    transform: translateY(-2px);
+    outline: none;
+}
+
+.fade_in {
+    opacity: 0;
+    animation: fadeIn 0.5s ease-in forwards;
+}
+
 @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
@@ -314,5 +437,26 @@ footer {
     }
     .button-group .submit-btn {
         width: 100%;
+    }
+    .hero {
+        padding: 30px 10px;
+    }
+    .hero-content h1 {
+        font-size: 1.8em;
+    }
+    .hero-content p {
+        font-size: 1em;
+    }
+    .specialties__grid {
+        grid-template-columns: 1fr;
+    }
+    .cta__section {
+        padding: 20px 10px;
+    }
+    .cta__title {
+        font-size: 1.5em;
+    }
+    .cta__text {
+        font-size: 1em;
     }
 }
