@@ -4,7 +4,7 @@
     --primary-color: #4682B4; /* Slate Blue */
     --secondary-color: #6A5ACD; /* Lighter Slate Blue for accents */
     --accent-color: #D8BFD8; /* Muted Blush/Thistle */
-    --background-color: #F0F8FF; /* Alice Blue */
+    --background-color: #F8F8FF; /* Ghost White - very light lavender-white */
     --text-color: #2F4F4F; /* Dark Slate Gray for readability */
     --card-bg: #FFFFFF;
     --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
@@ -136,7 +136,7 @@ h2 {
 }
 
 /* Base button style */
-.cta__button, .contact-btn, .choose-btn {
+.cta__button, .contact-btn {
     display: inline-block;
     padding: 12px 28px;
     background-color: var(--primary-color);
@@ -149,7 +149,7 @@ h2 {
     font-weight: 600;
 }
 
-.cta__button:hover, .contact-btn:hover, .choose-btn:hover {
+.cta__button:hover, .contact-btn:hover {
     background-color: var(--secondary-color);
     transform: translateY(-2px);
 }
@@ -297,9 +297,42 @@ h2 {
     margin-bottom: 20px;
 }
 
+/* REFINED PACKAGE BUTTONS */
+.package-card {
+    justify-content: space-between; /* pushes button to bottom */
+    min-height: 450px; /* uniform card height */
+}
+
 .choose-btn {
-    width: 100%;
-    margin-top: auto;
+    width: auto; /* fits text content */
+    padding: 10px 22px;
+    margin-top: 20px;
+    border-radius: 25px; /* pill shape */
+    align-self: flex-start; /* keeps button left-aligned */
+    font-weight: 600;
+    font-size: 1em;
+    background-color: var(--primary-color);
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.choose-btn::after {
+    content: "➔";
+    margin-left: 8px;
+    transition: margin-left 0.3s ease;
+}
+
+.choose-btn:hover {
+    background-color: var(--secondary-color);
+    transform: translateY(-3px);
+}
+
+.choose-btn:hover::after {
+    margin-left: 12px;
 }
 
 /* CTA Section */
@@ -354,5 +387,11 @@ footer {
     }
     .specialties__grid, .package-container {
         grid-template-columns: 1fr;
+    }
+    .package-card {
+        min-height: auto; /* cards shrink naturally on small screens */
+    }
+    .choose-btn {
+        align-self: center; /* center buttons on mobile */
     }
 }

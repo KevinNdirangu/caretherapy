@@ -1,19 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
     // --- CONFIGURATION ---
     const THERAPIST_NAME = 'Connie Wawira';
-    const CONTACT_EMAIL = 'conniemuriithi068@gmail.com'; // Your receiving email
-    const WHATSAPP_NUMBER = '254741629462';
-
-    // --- EMAILJS CONFIGURATION ---
-    // TO-DO: Replace these with your actual IDs from your EmailJS account
-    const EMAILJS_SERVICE_ID = 'YOUR_SERVICE_ID';
-    const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID';
-    const EMAILJS_PUBLIC_KEY = 'YOUR_PUBLIC_KEY';
-
-    // Initialize EmailJS SDK
-    (function() {
-        emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
-    })();
+    const CONTACT_EMAIL = 'conniemuriithi068@gmail.com';
+    const WHATSAPP_NUMBER = '254741629462'; // include country code without '+'
 
     // --- SMOOTH SCROLLING ---
     document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
@@ -41,43 +30,41 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- CONTACT FORM SUBMISSION WITH EMAILJS ---
+    // --- CONTACT FORM SUBMISSION USING MAILTO + WHATSAPP ---
     const contactForm = document.getElementById('contactForm');
     const formStatus = document.getElementById('formStatus');
 
     if (contactForm) {
         contactForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            
-            const submitButton = contactForm.querySelector('button[type="submit"]');
-            submitButton.disabled = true;
-            submitButton.textContent = 'Sending...';
 
-            // Template parameters for EmailJS
-            const templateParams = {
-                from_name: document.getElementById('name').value,
-                from_email: document.getElementById('email').value,
-                subject: document.getElementById('subject').value,
-                message: document.getElementById('message').value,
-            };
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const subject = document.getElementById('subject').value.trim();
+            const message = document.getElementById('message').value.trim();
 
-            emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams)
-                .then((response) => {
-                    console.log('SUCCESS!', response.status, response.text);
-                    showFormStatus('Message sent successfully! We\'ll get back to you soon.', 'success');
-                    contactForm.reset();
-                })
-                .catch((error) => {
-                    console.error('FAILED...', error);
-                    showFormStatus('Failed to send message. Please try again or use the contact links.', 'error');
-                })
-                .finally(() => {
-                    submitButton.disabled = false;
-                    submitButton.textContent = 'Send Message';
-                });
+            if (!name || !email || !subject || !message) {
+                showFormStatus('Please fill in all fields.', 'error');
+                return;
+            }
+
+            // Construct mailto URL
+            const mailtoLink = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(
+                `Name: ${name}\nEmail: ${email}\n\n${message}`
+            )}`;
+
+            // Open Gmail / default email client
+            window.location.href = mailtoLink;
+
+            // Optional: open WhatsApp link in a new tab
+            // const whatsappLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+            // window.open(whatsappLink, '_blank');
+
+            showFormStatus('Your email client has opened. Please send your message from there.', 'success');
+            contactForm.reset();
         });
     }
-    
+
     function showFormStatus(message, type) {
         formStatus.textContent = message;
         formStatus.className = `form-status ${type}`;
@@ -93,10 +80,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const packageName = button.getAttribute('data-package');
             const subject = `Inquiry about the ${packageName} Package`;
             const message = `Hello ${THERAPIST_NAME},\n\nI am interested in learning more about the "${packageName} Package." Please let me know the next steps.\n\nThank you,`;
-            
-            // Redirect to the contact form and pre-fill the subject
+
+            // Prefill the contact form fields
             const contactSection = document.getElementById('contact');
-            if(contactSection) {
+            if (contactSection) {
                 document.getElementById('subject').value = subject;
                 document.getElementById('message').value = message;
                 contactSection.scrollIntoView({ behavior: 'smooth' });
