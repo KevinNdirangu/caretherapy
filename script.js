@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- CONTACT FORM SUBMISSION USING MAILTO + WHATSAPP ---
+    // --- CONTACT FORM SUBMISSION USING MAILTO ---
     const contactForm = document.getElementById('contactForm');
     const formStatus = document.getElementById('formStatus');
 
@@ -53,12 +53,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 `Name: ${name}\nEmail: ${email}\n\n${message}`
             )}`;
 
-            // Open Gmail / default email client
+            // Open default email client
             window.location.href = mailtoLink;
-
-            // Optional: open WhatsApp link in a new tab
-            // const whatsappLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
-            // window.open(whatsappLink, '_blank');
 
             showFormStatus('Your email client has opened. Please send your message from there.', 'success');
             contactForm.reset();
@@ -74,6 +70,29 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 6000);
     }
 
+    // --- SEND VIA WHATSAPP ---
+    const whatsappBtn = document.getElementById('sendWhatsApp'); // fixed ID to match HTML
+    if (whatsappBtn) {
+        whatsappBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+
+            const name = document.getElementById('name').value || 'Anonymous';
+            const email = document.getElementById('email').value || 'Not provided';
+            const subject = document.getElementById('subject').value || 'No subject';
+            const message = document.getElementById('message').value || 'No message';
+
+            const whatsappMessage = `Hello ${THERAPIST_NAME},%0A%0A` +
+                `You have a new inquiry via your website.%0A%0A` +
+                `👤 Name: ${name}%0A` +
+                `📧 Email: ${email}%0A` +
+                `📝 Subject: ${subject}%0A` +
+                `💬 Message: ${message}`;
+
+            const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${whatsappMessage}`;
+            window.open(whatsappUrl, '_blank');
+        });
+    }
+
     // --- SERVICE PACKAGE BUTTONS ---
     document.querySelectorAll('.choose-btn').forEach(button => {
         button.addEventListener('click', () => {
@@ -86,7 +105,11 @@ document.addEventListener('DOMContentLoaded', () => {
             if (contactSection) {
                 document.getElementById('subject').value = subject;
                 document.getElementById('message').value = message;
+
+                // Auto scroll into view
                 contactSection.scrollIntoView({ behavior: 'smooth' });
+
+                // Focus on name input for better UX
                 document.getElementById('name').focus();
             }
         });
