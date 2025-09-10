@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     // --- CONFIGURATION ---
-    const THERAPIST_NAME = 'Connie Wawira';
+    const THERAPIST_NAME = 'Connie Muriithi';
     const CONTACT_EMAIL = 'conniemuriithi068@gmail.com';
     const WHATSAPP_NUMBER = '254741629462'; // include country code without '+'
 
